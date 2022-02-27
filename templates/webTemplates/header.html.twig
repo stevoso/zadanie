@@ -1,0 +1,19 @@
+<div id="appHeader">
+    <div style="white-space: nowrap;">
+        <a href="{{ path('welcome') }}" style="text-decoration: none;">
+            <img src="{{ asset('images/nebbia.jpg') }}" alt="" style="max-height: 1.5rem;">
+        </a>
+        <a href="{{ path('rssEntry_listing') }}" class="btn btn-outline-primary btn-sm">RSS Kanály</a>
+        <a href="{{ path('settings') }}" class="btn btn-outline-primary btn-sm" title="Nastavenia">
+            <i class="fa fa-cog"></i>
+        </a>
+    </div>
+
+    <div style="display: flex; flex-direction: row; align-items: center;">
+        {{ app.user.getFullName() }}
+        <a href="{{ path('logout') }}" class="btn btn-link">
+            <i class="fa fa-sign-out-alt"></i>&nbsp;
+            Odhlásiť
+        </a>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+{% extends 'webTemplates/base.html.twig' %}
+
+{% block mainBody %}
+    {{ render(controller('App\\Controller\\app\\IndexController::headerAction'))|raw }}
+{% endblock %}

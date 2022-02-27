@@ -1,0 +1,14 @@
+@import "colors";
+
+/*--- error panel ---*/
+.errorPanel {
+    margin: 1rem 0 0 0;
+
+    ul {
+        margin: 0 0 0 1rem; padding: 0;
+
+        li { color: $red; }
+    }
+}
+
+ul.error-messages, .error-message { font-weight: normal; color: $red; }

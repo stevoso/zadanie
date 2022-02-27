@@ -1,0 +1,17 @@
+// cd public/css/sass
+// sass base.scss ../styles.css --no-source-map --style=compressed
+
+@import 'colors';
+
+// this should be the first
+@import 'mainLayout';
+
+// these can be ordered randomly
+@import 'typography';
+@import 'buttons';
+@import "errors";
+@import "formComponents";
+@import "tables";
+
+// these should be the last because may override already defined styles
+@import "bootstrapOverride";

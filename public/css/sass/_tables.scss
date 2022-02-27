@@ -1,0 +1,15 @@
+/*--- tables ---*/
+table.report1 {
+    .shortcut { font-size: 0.7rem; }
+}
+table.report1 td, table.report1 th { border: 1px solid #444; font-weight: normal; }
+table.report1 tr td.red { background-color: #fcbfbf; }
+table.report1 tr td.green { background-color: #8af88a; }
+table.report1 tr td.yellow { background-color: #fcf690; }
+table.report1 tr:hover td.red { background-color: #efa2a2; }
+table.report1 tr:hover td.green { background-color: #57d957; }
+table.report1 tr:hover td.yellow { background-color: #faf056; }
+
+table.data1 tr th { background-color: #ddd; font-weight: 600; }
+table.data1 td, table.data1 th { border: 1px solid #888; font-weight: normal; padding: 0.1rem 0.5rem; }
+table.data1 tr:hover td { background-color: #eee; }

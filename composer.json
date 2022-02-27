@@ -1,0 +1,103 @@
+{
+    "name": "nebbia/zadaniesoltys",
+    "license": "MIT",
+    "type": "project",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "replace": {
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*"
+    },
+    "require": {
+        "php": ">=8.0.13",
+        "ext-calendar": "*",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-json": "*",
+        "ext-libxml": "*",
+        "ext-pdo": "*",
+        "ext-simplexml": "*",
+        "ext-soap": "*",
+        "ext-zip": "*",
+        "doctrine/dbal": "^3.1",
+        "doctrine/doctrine-bundle": "^2.5",
+        "doctrine/orm": "^2.10",
+        "sensio/framework-extra-bundle": "^6.2",
+        "sentia/utils": "dev-main",
+        "symfony/apache-pack": "^1.0",
+        "symfony/asset": "^6.0",
+        "symfony/dotenv": "^6.0",
+        "symfony/expression-language": "^6.0",
+        "symfony/flex": "^1.17.1",
+        "symfony/form": "^6.0",
+        "symfony/framework-bundle": "^6.0",
+        "symfony/http-client": "*",
+        "symfony/mailer": "*",
+        "symfony/monolog-bundle": "^3.7",
+        "symfony/runtime": "^6.0",
+        "symfony/security-bundle": "^6.0",
+        "symfony/string": "^6.0",
+        "symfony/serializer": "*",
+        "symfony/translation": "^6.0",
+        "symfony/twig-bundle": "^6.0",
+        "symfony/uid": "*",
+        "symfony/validator": "^6.0",
+        "symfony/yaml": "^6.0",
+        "tecnickcom/tcpdf": "^6.2",
+        "twig/extra-bundle": "^3.3",
+        "twig/intl-extra": "^3.3"
+    },
+    "require-dev": {
+        "symfony/debug-bundle": "*",
+        "symfony/stopwatch": "5.*",
+        "symfony/var-dumper": "*",
+        "symfony/web-profiler-bundle": "*"
+    },
+    "config": {
+        "platform": {
+            "php": "8.0.13"
+        },
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "6.0.*"
+        }
+    }
+}

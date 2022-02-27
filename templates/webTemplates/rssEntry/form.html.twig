@@ -1,0 +1,49 @@
+{% form_theme form 'formThemes/form_errors.html.twig' %}
+
+<div style="height: 100%; display: flex; flex-direction: column; overflow: auto;">
+    {{ include('webTemplates/formErrors.html.twig') }}
+
+    {{ form_start(form, {'attr': {'id': 'entryForm'}}) }}
+    <div>Názov:</div>
+    <div>
+        {{ form_widget(form.title, { 'attr' : { 'class' : 'form-control' } }) }}
+    </div>
+
+    <div class="pt-2">RSS kanál:</div>
+    <div>
+        {{ form_widget(form.idRssChannel, { 'attr' : { 'class' : 'form-control' } }) }}
+    </div>
+
+    <div class="pt-2">Link (URL):</div>
+    <div>
+        {{ form_widget(form.link, { 'attr' : { 'class' : 'form-control' } }) }}
+    </div>
+
+    <div class="pt-2">Summary:</div>
+    <div>
+        {{ form_widget(form.summary, { 'attr' : { 'class' : 'form-control' } }) }}
+    </div>
+
+    <div class="pt-2">Content:</div>
+    <div>
+        {{ form_widget(form.content, { 'attr' : { 'class' : 'form-control' } }) }}
+    </div>
+
+    <div style="padding: 20px 0 0 0;">
+        <a href="#" data-dismiss="modal" class="btn btn-link">
+            Storno
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-outline-primary" id="submitFormEntry">
+            <i class="fa fa-check icon-for-button"></i>&nbsp;
+            Zapísať
+        </button>
+    </div>
+    {{ form_end(form) }}
+</div>
+
+<script>
+    $(document).ready(function() {
+        APP.ajaxUtils.submitFormIntoDiv("entryForm", "{{ formSubmitUrl }}", "dialogEntryFormBody", ["submitFormEntry"]);
+    });
+</script>

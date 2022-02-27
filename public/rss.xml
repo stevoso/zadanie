@@ -1,0 +1,56 @@
+<feed>
+<title>Nebbia zadanie</title>
+<subtitle>Všetky príspvky</subtitle>
+<link href="https://zadanie.prestiz.sk/rss.xml" type="application/atom+rss" rel="alternate"/>
+<id>1</id>
+<updated>2022-02-27CET16:23:09+02:00</updated><entry>
+  <id>5</id>
+  <title type="text">lljlkjlkjl</title>
+  <published>2022-02-27CET13:46:16+02:00</published>
+    <author>
+      <name>Zadanie</name>
+    </author>
+  <link rel="alternate" href="jlkjljlkj"/>
+<summary type="text"></summary>
+<content type="text"></content>
+<category term="Aktuality"/>
+<updated>2022-02-27CET13:46:16+02:00</updated>
+</entry><entry>
+  <id>4</id>
+  <title type="text">uouoiu</title>
+  <published>2022-02-27CET13:46:07+02:00</published>
+    <author>
+      <name>Zadanie</name>
+    </author>
+  <link rel="alternate" href="uouioiuo"/>
+<summary type="text"></summary>
+<content type="text"></content>
+<category term="Aktuality"/>
+<updated>2022-02-27CET13:46:07+02:00</updated>
+</entry><entry>
+  <id>3</id>
+  <title type="text">dsfgdfg</title>
+  <published>2022-02-27CET13:45:58+02:00</published>
+    <author>
+      <name>Zadanie</name>
+    </author>
+  <link rel="alternate" href="k;lk;lk"/>
+<summary type="text"></summary>
+<content type="text"></content>
+<category term="Aktuality"/>
+<updated>2022-02-27CET13:45:58+02:00</updated>
+</entry><entry>
+  <id>2</id>
+  <title type="text">sfsdf111</title>
+  <published>2022-02-27CET11:49:39+02:00</published>
+    <author>
+      <name>Zadanie</name>
+    </author>
+  <link rel="alternate" href="sfsdfsdfsdf"/>
+<summary type="text">sdfsdfs
+sdfsdfsdf</summary>
+<content type="text">bdfdfgdfg
+dfgdsfgdfg</content>
+<category term="Aktuality"/>
+<updated>2022-02-27CET13:26:35+02:00</updated>
+</entry></feed>

@@ -1,0 +1,20 @@
+/*--- placeholder ---*/
+input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder,
+input[type="email"]::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #ccc; }
+
+input[type="text"]::-moz-placeholder, input[type="password"]::-moz-placeholder,
+input[type="email"]::-moz-placeholder, textarea::-moz-placeholder { color: #ccc; }
+
+input[type="text"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder,
+input[type="email"]:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #ccc; }
+
+input[type="text"]:-moz-placeholder, input[type="password"]:-moz-placeholder,
+input[type="email"]:-moz-placeholder, textarea:-moz-placeholder { color: #ccc; }
+
+input.required, select.required, textarea.required { border: 1px solid #fea083; background-color: #fbf3f1;}
+
+.fc-inline {width: auto; display: inline;}
+
+.colText { padding-top: 1rem; }
+.colText .title, .form-label { margin: 0; color: #777; }
+.colText .value { font-weight: 600; }

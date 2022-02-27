@@ -1,0 +1,18 @@
+/*--- buttony ---*/
+@import "colors";
+
+.btn-primary i { color: $brown4; }
+.btn-xs{padding:.15rem .25rem;font-size:.675rem;line-height:1.25;border-radius:.1rem}
+
+.bigButton1Disabled { padding: 0.5rem 2rem; margin: 0 0.25rem; color: #999 !important; border-radius: 2px; border: 0px; text-align: center; background-color: #ccc; transition: all .3s ease; cursor: not-allowed; }
+.bigButton1Disabled i { color: #eee; margin-right: 0.25rem; }
+
+.defaultButton { font-size: 1rem; padding: 0.2rem 1rem; margin: 0 0.25rem; color: #ffbc75 !important; border-radius: 2px; border: 0px; text-align: center; background-color: #331700; transition: all .3s ease; cursor: pointer; }
+.defaultButton i { color: $brown4; margin-right: 0.25rem; }
+.defaultButton:hover { background-color: #623108; text-decoration: none; color: #ffbc75; }
+
+.panelButton { display: inline-block; padding: 0.35rem 0.5rem; color: #7d4619; font-size: 0.9rem; text-align: center; line-height: 1rem; text-decoration: none; background-color: #dda162; border: 1px solid #d09252; }
+.panelButton:hover { background-color: #d19353; color: #7d4619; text-decoration: none; border: 1px solid #c1813f; }
+
+.loggedUserBtn { border: 0; background-color: transparent; color: #331700; font-size: 0.9rem; padding: 0.25rem 0.5rem; }
+.loggedUserBtn:hover { background-color: rgba(150, 150, 150, 0.3); }

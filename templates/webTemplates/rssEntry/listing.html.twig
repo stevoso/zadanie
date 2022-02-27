@@ -1,0 +1,142 @@
+{% extends 'webTemplates/base.html.twig' %}
+
+{% block mainBody %}
+    {{ render(controller('App\\Controller\\app\\IndexController::headerAction'))|raw }}
+
+    <script>
+      function changeUser() {
+        let idUser = document.getElementById("idUser").value;
+        let url = '{{ path('rssEntry_listing', {'idUser': '**PLACEHOLDER2**'}) }}';
+        url = url.replace("**PLACEHOLDER2**", idUser);
+        window.location = url;
+      }
+
+      function changeChannel() {
+        let idChannel = document.getElementById("idChannel").value;
+        let idUser = document.getElementById("idUser").value;
+        let url = '{{ path('rssEntry_listing', {'idChannel': '**PLACEHOLDER1**', 'idUser': '**PLACEHOLDER2**'}) }}';
+        url = url.replace("**PLACEHOLDER1**", idChannel);
+        url = url.replace("**PLACEHOLDER2**", idUser);
+        window.location = url;
+      }
+    </script>
+
+    {#----- dialogove okno na pridanie zaznamu -----#}
+    <script>
+        function entryForm() {
+            $("#dialogEntryFormBody").html("");
+            $("#dialogEntryFormTitle").text("Nový záznam");
+            APP.ajaxUtils.callUrlIntoElement("dialogEntryFormBody", '{{ path('rssEntry_new', {'idChannel': idChannel}) }}');
+            $('#dialogEntryForm').modal('show');
+        }
+    </script>
+
+    <div class="modal fade" id="dialogEntryForm" tabindex="-1" role="dialog" aria-labelledby="dialogEntryFormTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dialogEntryFormTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="dialogEntryFormBody">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+    {#----- zoznam zaznamov -----#}
+    <div>
+        <div class="d-flex align-items-center mt-5">
+            <h2 class="m-0">RSS kanály</h2>
+            <select id="idUser" class="form-control mx-2" style="width: auto;" onchange="changeUser();">
+                {% for user in users %}
+                    <option value="{{ user.id }}"{% if idUser == user.id %} selected="selected"{% endif %}>{{ user.getFullName() }}</option>
+                {% endfor %}
+            </select>
+            <select id="idChannel" class="form-control" title="model" style="width: auto;" onchange="changeChannel();">
+                {% for channel in channels %}
+                    <option value="{{ channel.id }}"{% if idChannel == channel.id %} selected="selected"{% endif %}>{{ channel.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        {% if app.user.id == idUser %}
+            <div class="d-flex align-items-center">
+                <button type="button" onclick="entryForm();" class="btn btn-outline-primary btn-sm my-2">
+                    <i class="fa fa-plus"></i>&nbsp;
+                    pridať záznam
+                </button>
+            </div>
+        {% endif %}
+
+        <div style="flex: 1 1 auto; overflow: auto;">
+            {% if rssEntries|length == 0 %}
+                <div class="text-center" style="padding: 30px 0 0 0;">
+                    - žiaden záznam -
+                </div>
+            {% else %}
+                <div>
+                    {% for rssEntry in rssEntries %}
+                        {% set fontStyle = "" %}
+                        {% if statuses[rssEntry.id] is not defined or not statuses[rssEntry.id].isRead() %}
+                            {% set fontStyle = "font-weight: bold;" %}
+                        {% endif %}
+
+                        <div class="dataRow d-flex justify-content-start">
+                            <input type="checkbox" name="idsCheckedEntries[]" value="{{ rssEntry.id }}">
+                            <div>
+                                <a href="{{ path('rssEntry_detail', {'id':rssEntry.id}) }}" class="btn btn-link mx-2 py-0" style="{{ fontStyle }}">
+                                    {{ rssEntry.title }}
+                                </a>
+                                {% if statuses[rssEntry.id] is defined and statuses[rssEntry.id].idRssEntryFlag is not null %}
+                                    <span class="px-2 py-1" style="color: #fff; background-color: {{ allFlags[statuses[rssEntry.id].idRssEntryFlag].color }};">
+                                        {{ allFlags[statuses[rssEntry.id].idRssEntryFlag].name }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <div class="ml-auto">
+                                {{ rssEntry.publishedAt|date("d.m.Y, H:i") }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {% if lastPageNumber != 1 %}
+                    <div class="text-center">
+                        {% if page > 1 %}
+                            <div class="btn-group">
+                                <a href="{{ path('rssEntry_listing', {'page':1, 'idChannel':idChannel, 'idUser':idUser}) }}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fa fa-angle-double-left"></i>
+                                </a>
+                                <a href="{{ path('rssEntry_listing', { 'page': page-1, 'idChannel':idChannel, 'idUser':idUser }) }}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fa fa-angle-left"></i>
+                                </a>
+                            </div>
+                        {% endif %}
+
+                        &nbsp;
+                        strana <b>{{ page }}</b> / <b>{{ lastPageNumber }}</b>
+                        &nbsp;
+
+                        {% if page < lastPageNumber %}
+                            <div class="btn-group">
+                                <a href="{{ path('rssEntry_listing', { 'page': page+1, 'idChannel':idChannel, 'idUser':idUser }) }}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <a href="{{ path('rssEntry_listing', { 'page': lastPageNumber, 'idChannel':idChannel, 'idUser':idUser }) }}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

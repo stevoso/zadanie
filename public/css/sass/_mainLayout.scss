@@ -1,0 +1,37 @@
+@import "colors";
+
+body, html { height: 100%; min-height: 100%; background-color: $bg-main; color: $gray2; font-size: 15px; font-family: 'Roboto', sans-serif; letter-spacing: 0.0125rem; }
+
+/*--- layout ---*/
+#appHeader { flex: 0 0 2.5rem; padding: 0.2rem 1rem; display: flex; flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: nowrap; border-bottom: 1px solid #000; }
+#flexWrapper { flex: 1; overflow: auto; display: flex; flex-direction: row; }
+#appContent { background-color: $gray0; flex: 1 1 auto; overflow: auto; }
+#appContentWrapper { display: flex; flex-direction: column; height: 100%; }
+#appContentHeader {
+    flex: 1 1 auto; display: flex; background-color: #e0e0e0; padding: 0.25rem 1rem 0.1rem 1rem; border-bottom: 1px solid $gray1; align-items: center;
+    h2 { font-weight: 600; font-size: 1.25rem; color: #331700; margin: 0; }
+}
+#appContentBody { flex: 1 1 auto; overflow: auto; height: 100%; }
+
+#overlay { position: fixed; z-index: 999; top: 0; right: 0; bottom: 0; left: 0; display: none; background-color: rgba(0,0,0,0.5); }
+.overlay { height: 100%; width: 100%; display: none; position: fixed; z-index: 1; top: 0; left: 0; background-color: rgba(0,0,0, 0.6); }
+.overlay-content { position: relative; top: 15%; width: 100%; margin-top: 10px; color: #f47920; }
+
+.tabContent { background-color: $white; padding: 0 1rem 1rem 1rem; margin: 0 0 1rem 0; border-left: 1px solid #ddd; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+.ajax-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute; background-color: rgba(230,230,230,0.8); color: #444; font-weight: bold;
+}
+.flex {
+    display: flex;
+    &.vertical-top { align-items: flex-start; }
+    &.vertical-center { align-items: center; }
+    &.content-left { justify-content: flex-start; }
+    &.content-left-right { justify-content: space-between; }
+}
+
+.dataRow { display: flex; justify-content: space-between; margin: 0 0 0 0; padding: 0.5rem 1rem; border-bottom: 1px solid #ccc; }
+.dataRow:last-child { border-bottom: 0; }
+.dataRow:hover { background-color: #ccc; }

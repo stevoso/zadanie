@@ -1,0 +1,19 @@
+{% block choice_widget_expanded %}
+    {% for choiceOrOptionGroup,children in form.vars.choices %}
+        {% if children is iterable %}
+            <div style="margin-bottom: 0.5rem; padding-left: 1rem;">
+            {% for child,choiceView in children %}
+                <span style="margin-left: 1rem;">
+                    {{ form_widget(form.offsetGet(child)) }}
+                    {{ form_label(form.offsetGet(child), null, {translation_domain: choice_translation_domain}) }}
+                </span>
+            {% endfor %}
+            </div>
+        {% else %}
+            <div style="margin-bottom: 0.5rem;">
+                {{ form_widget(form.offsetGet(choiceOrOptionGroup)) }}
+                {{ form_label(form.offsetGet(choiceOrOptionGroup), null, {'label_attr':{'style':'display: inline;'}, translation_domain: choice_translation_domain}) }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock choice_widget_expanded %}

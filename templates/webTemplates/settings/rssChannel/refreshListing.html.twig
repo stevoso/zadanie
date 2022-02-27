@@ -1,0 +1,6 @@
+<script>
+$(document).ready(function() {
+    $('#dialogRssChannelDelete').modal('hide');
+    APP.ajaxUtils.callUrlIntoElement("rssChannels", "{{ path('rssChannel_listing') }}");
+});
+</script>

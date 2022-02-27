@@ -1,0 +1,63 @@
+/*--- BOOTSTRAP override ---*/
+@import "colors";
+
+.modal-footer { justify-content: center; }
+.btn-primary { color: $brown3 !important; background-color: $brown1; border-color: $brown1; }
+.btn-primary:hover { color: $brown3; background-color: $brown5; border-color: $brown5; }
+
+.btn-secondary { color: $brown1 !important; background-color: $gray1; border-color: $gray3; }
+.btn-secondary:hover { color: $brown1; background-color: $gray3; border-color: $gray3; }
+
+.form-group {
+    margin-bottom: 0.75rem;
+    label { margin-bottom: 0; }
+}
+
+.badge {font-weight: 600; }
+
+.card {
+    margin-top: 1rem;
+
+    .card-header {
+        background-color: #eeeeee;
+
+        b { font-weight: 500; }
+
+        .fa, .fas, .far {
+            color: $gray3; margin-right: .25rem;
+        }
+    }
+
+    .section {
+        display: flex;
+        align-items: center;
+
+        .rounded-icon {
+            text-align: center; background-color: $white; width: 3rem; height: 3rem; margin: 1rem 1rem; padding-top: 0.72rem; border-radius: 50% !important;
+        }
+
+        &.gray {
+            background-color: $gray3;
+            color: $gray1;
+
+            .rounded-icon {
+                .fa {
+                    color: $gray3; font-size: 1.5rem;
+                }
+            }
+        }
+
+        &.brown {
+            background-color: $brown2;
+            color: $brown6;
+
+            .rounded-icon {
+                .fa {
+                    color: $brown2; font-size: 1.5rem;
+                }
+            }
+        }
+    }
+
+
+}

@@ -1,0 +1,147 @@
+{% extends 'webTemplates/base.html.twig' %}
+
+{% block mainBody %}
+    {{ render(controller('App\\Controller\\app\\IndexController::headerAction'))|raw }}
+
+    {#----- dialogove okno na vymazanie zaznamu -----#}
+    <div class="modal fade" id="dialogEntryDelete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dialogEntryDeleteTitle">Vymazanie príspevkku</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="dialogEntryDeleteBody">
+                </div>
+                <div class="modal-footer">
+                    <a href="#" data-dismiss="modal" class="btn btn-link">Nie</a>
+                    &nbsp;
+                    <button type="button" class="btn btn-outline-primary clickable" id="submitDeleteEntry">Áno</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#----- dialogove okno na editaciu zaznamu -----#}
+    <script>
+        function entryForm() {
+            $("#dialogEntryFormBody").html("");
+            $("#dialogEntryFormTitle").text("Editácia záznamu");
+            APP.ajaxUtils.callUrlIntoElement("dialogEntryFormBody", '{{ path('rssEntry_edit', {'id': entry.id}) }}');
+            $('#dialogEntryForm').modal('show');
+        }
+    </script>
+
+    <div class="modal fade" id="dialogEntryForm" tabindex="-1" role="dialog" aria-labelledby="dialogEntryFormTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dialogEntryFormTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="dialogEntryFormBody">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#----- detail -----#}
+    <script>
+      function deleteEntry() {
+        $("#dialogEntryDeleteBody").html("<b>Naozaj vymazať záznam?</b>");
+        $('#dialogEntryDelete').modal('show');
+        $("#submitDeleteEntry").click(function () {
+          APP.ajaxUtils.callUrl('{{ path('rssEntry_delete', {'id': entry.id}) }}');
+        });
+      }
+    </script>
+    <div class="container-fluid">
+
+        <h2>Detail {% if channel.idUser == app.user.id %}môjho{% endif %} príspevku</h2>
+        <div class="row">
+            <div class="col-md-3">
+                Možnosti:
+                <hr />
+                <a href="{{ path('rssEntry_listing', {'idUser': channel.idUser, 'idChannel': entry.idRssChannel}) }}" class="btn btn-outline-primary btn-sm" style="display: block;">
+                    späť na zoznam
+                </a>
+
+                {% if channel.idUser != app.user.id %}
+                    <a href="{{ path('rssEntry_toggleRead', {'id': entry.id}) }}" class="btn btn-outline-primary btn-sm my-2" style="display: block;">
+                        {% if entryStatus is null or not entryStatus.isRead() %}
+                            označiť ako prečítané
+                        {% else %}
+                            označiť ako neprečítané
+                        {% endif %}
+                    </a>
+                {% endif %}
+
+                {% if channel.idUser == app.user.id %}
+                    <a href="#" onclick="entryForm();" class="btn btn-outline-primary btn-sm my-2" style="display: block;">
+                        <i class="fa fa-pencil-alt"></i>
+                        Editovať
+                    </a>
+                    <a href="#" onclick="deleteEntry();" class="btn btn-outline-primary btn-sm" style="display: block;">
+                        <i class="fa fa-trash-alt"></i>
+                        Vymazať
+                    </a>
+                {% endif %}
+
+                {% if channel.idUser != app.user.id %}
+                    <div class="mt-5">
+                        Nastaviť flag (kliknutím):
+                        <hr />
+                    </div>
+
+                    <a href="{{ path('rssEntry_setFlag', {'id': entry.id, 'idFlag': 0}) }}" class="btn btn-link btn-sm px-3 py-1 my-1" style="display: block;">
+                        vymazať flag
+                    </a>
+
+                    {% for flag in flags %}
+                        <a href="{{ path('rssEntry_setFlag', {'id': entry.id, 'idFlag': flag.id}) }}" class="px-3 py-1 my-1" style="color: #fff; background-color: {{ flag.color }}; display: block;">
+                            {{ flag.name }}
+                        </a>
+
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+            <div class="col-md-9">
+                <div style="font-size: 0.8rem;" class="mb-2">
+                    Príspevok pridal: <b>{{ user.getFullName() }}</b> <em>{{ entry.publishedAt|date("d.m.Y, H:i:s") }}</em>
+                    {% if entry.updatedAt is not null %}
+                        , posledná editácia: <em>{{ entry.updatedAt|date("d.m.Y, H:i:s") }}</em>
+                    {% endif %}
+
+                    {% if flag is not null %}
+                        <span class="px-2 py-1" style="color: #fff; background-color: {{ flag.color }};">
+                            {{ flag.name }}
+                        </span>
+                    {% endif %}
+
+                    {% if entryStatus is null or not entryStatus.isRead() %}
+                        <b>neprečítané</b>
+                    {% else %}
+                        <b>prečítané</b>
+                    {% endif %}
+                </div>
+                <dl>
+                    <dt>Title</dt>
+                    <dd>{{ entry.title }}</dd>
+                    <dt>Link</dt>
+                    <dd>
+                        <a href="{{ entry.link }}" target="_blank">{{ entry.link }}</a>
+                    </dd>
+                    <dt>Content</dt>
+                    <dd>{{ entry.content | nl2br }}</dd>
+                    <dt>Summary</dt>
+                    <dd>{{ entry.summary | nl2br }}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+{% endblock %}

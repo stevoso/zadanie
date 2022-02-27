@@ -1,0 +1,6 @@
+<script>
+$(document).ready(function() {
+    $('#dialogEntryFlagDelete').modal('hide');
+    APP.ajaxUtils.callUrlIntoElement("entryFlags", "{{ path('entryFlag_listing') }}");
+});
+</script>

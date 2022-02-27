@@ -1,0 +1,19 @@
+{% if (formErrors is defined and formErrors|length > 0) or (systemErrors is defined and systemErrors|length > 0) %}
+    <div class="errorPanel">
+        <ul>
+            {# --- symfonacke formularove chyby --- #}
+            {% if formErrors is defined and formErrors|length > 0 %}
+                {% for formError in formErrors %}
+                    <li>{{ formError.message|trans }}</li>
+                {% endfor %}
+            {% endif %}
+
+            {# --- nase chyby --- #}
+            {% if systemErrors is defined and systemErrors|length > 0 %}
+                {% for systemError in systemErrors %}
+                    <li>{{ systemError|trans }}</li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}

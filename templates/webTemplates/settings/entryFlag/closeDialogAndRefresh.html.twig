@@ -1,0 +1,6 @@
+<script>
+$(document).ready(function() {
+    APP.ajaxUtils.callUrlIntoElement("entryFlags", "{{ path('entryFlag_listing') }}");
+    $('#dialogEntryFlagForm').modal('hide');
+});
+</script>

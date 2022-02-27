@@ -1,0 +1,11 @@
+{% block form_errors %}
+	{% if errors|length == 1 %}
+	<div class="error-message">{{ errors|first.message }}</div>
+	{% elseif errors|length > 1 %}
+	<ul class="error-messages">
+		{%for error in errors %}
+			<li>{{ error.message }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+{% endblock form_errors %}

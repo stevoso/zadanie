@@ -1,0 +1,25 @@
+{% extends 'webTemplates/base.html.twig' %}
+
+{% block mainBody %}
+    {{ render(controller('App\\Controller\\app\\IndexController::headerAction'))|raw }}
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-3" id="entryFlags">
+                {{ render(controller('App\\Controller\\app\\settings\\EntryFlagController::listing'))|raw }}
+            </div>
+            <div class="col-md-4" id="rssChannels">
+                {{ render(controller('App\\Controller\\app\\settings\\RssChannelController::listing'))|raw }}
+            </div>
+            <div class="col-md-3">
+                <h2>XML</h2>
+                <a href="{{ path('updateXml') }}" class="btn btn-outline-primary btn-sm">Aktualizovať xml</a>
+
+                {% if isXmlFile %}
+                    <a href="/rss.xml" class="btn btn-link" target="_blank">RSS.XML</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,110 @@
+{#----- dialogove okno na vymazanie zaznamu -----#}
+<div class="modal fade" id="dialogRssChannelDelete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dialogRssChannelDeleteTitle">Vymazanie záznamu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="dialogRssChannelDeleteBody">
+            </div>
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal" class="btn btn-link">Nie</a>
+                &nbsp;
+                <button type="button" class="btn btn-outline-primary clickable" id="submitDeleteRssChannel">Áno</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{#----- dialogove okno na pridanie / editaciu zaznamu -----#}
+<script>
+    function rssChannelForm(idItem) {
+        $("#dialogRssChannelFormBody").html("");
+        if (idItem === undefined) {
+            // pridanie noveho zaznamu
+            $("#dialogRssChannelFormTitle").text("Nový kanál");
+            APP.ajaxUtils.callUrlIntoElement("dialogRssChannelFormBody", "{{ path('rssChannel_new') }}");
+        } else {
+            // editacia existujuceho zaznamu
+            $("#dialogRssChannelFormTitle").text("Editácia záznamu");
+            let url = '{{ path('rssChannel_edit', {'id': '**PLACEHOLDER**'}) }}';
+            url = url.replace("**PLACEHOLDER**", idItem);
+            APP.ajaxUtils.callUrlIntoElement("dialogRssChannelFormBody", url);
+        }
+        $('#dialogRssChannelForm').modal('show');
+    }
+</script>
+
+<div class="modal fade" id="dialogRssChannelForm" tabindex="-1" role="dialog" aria-labelledby="dialogRssChannelFormTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dialogRssChannelFormTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="dialogRssChannelFormBody">
+            </div>
+        </div>
+    </div>
+</div>
+
+{#----- zoznam zaznamov -----#}
+<div style="display: flex; flex-direction: column; height: 100%;">
+    <h2>Moje RSS kanály</h2>
+    <div>
+        Zoznam RSS kanálov, do ktorých si vie prihlásený používateľ evidovať RSS záznamy.
+    </div>
+    <button type="button" onclick="rssChannelForm();" class="btn btn-outline-primary btn-sm my-2">
+        <i class="fa fa-plus"></i>&nbsp;
+        pridať kanál
+    </button>
+    <div style="flex: 1 1 auto; overflow: auto;">
+        {% if rssChannels|length == 0 %}
+            <div class="text-center" style="padding: 30px 0 0 0;">
+                - žiaden záznam -
+            </div>
+        {% else %}
+            <script>
+                function deleteRssChannel(idItem) {
+                    let html = "<b>Naozaj vymazať kanál?</b><br><br><i>" + $("#rchTitle" + idItem).text() + "</i>";
+                    html += "<br><br><b>Pozor, budú vymazané všetky záznamy v tomto kanáli</b>";
+                    $("#dialogRssChannelDeleteBody").html(html);
+                    $('#dialogRssChannelDelete').modal('show');
+                    $("#submitDeleteRssChannel").click(function () {
+                        let url = '{{ path('rssChannel_delete', {'id': '**PLACEHOLDER**'}) }}';
+                        url = url.replace("**PLACEHOLDER**", idItem);
+                        APP.ajaxUtils.callUrl(url);
+                    });
+                }
+            </script>
+
+            <div>
+                {% for rssChannel in rssChannels %}
+                    <div class="dataRow d-flex align-items-start">
+                        <div class="mr-auto">
+                            <span id="rchTitle{{ rssChannel.id }}" style="display: inline-block; font-weight: bolder;">
+                                {{ rssChannel.title }}
+                            </span>
+                            <div style="font-size: 0.9rem;">
+                                {{ rssChannel.subtitle }}
+                            </div>
+                        </div>
+
+                        <a onclick="rssChannelForm('{{ rssChannel.id }}');" class="btn btn-outline-primary btn-sm clickable">
+                            <i class="fa fa-pencil-alt"></i>
+                        </a>
+                        &nbsp;
+                        <a onclick="deleteRssChannel('{{ rssChannel.id }}');" class="btn btn-outline-primary btn-sm clickable ms-1">
+                            <i class="fa fa-trash-alt"></i>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,35 @@
+{% form_theme form 'formThemes/form_errors.html.twig' %}
+
+<div style="height: 100%; display: flex; flex-direction: column; overflow: auto;">
+    {{ include('webTemplates/formErrors.html.twig') }}
+
+    {{ form_start(form, {'attr': {'id': 'entryFlagForm'}}) }}
+    <div>Názov:</div>
+    <div>
+        {% set required = '' %}
+        {{ form_widget(form.name, { 'attr' : { 'class' : 'form-control' } }) }}
+    </div>
+
+    <div style="padding: 10px 0 0 0;">Farba:</div>
+    <div>
+        {{ form_widget(form.color, { 'attr' : { 'class' : 'form-control' } }) }}
+    </div>
+
+    <div class="center" style="padding: 20px 0 0 0;">
+        <a href="#" data-dismiss="modal" class="btn btn-link">
+            Storno
+        </a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-outline-primary" id="submitFormEntryFlag">
+            <i class="fa fa-check icon-for-button"></i>&nbsp;
+            Zapísať
+        </button>
+    </div>
+    {{ form_end(form) }}
+</div>
+
+<script>
+    $(document).ready(function() {
+        APP.ajaxUtils.submitFormIntoDiv("entryFlagForm", "{{ formSubmitUrl }}", "dialogEntryFlagFormBody", ["submitFormEntryFlag"]);
+    });
+</script>

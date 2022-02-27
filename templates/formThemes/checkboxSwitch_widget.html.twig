@@ -1,0 +1,20 @@
+{% block choice_widget_expanded %}
+    {% for choiceOrOptionGroup,children in form.vars.choices %}
+        {% if children is iterable %}
+            <div style="margin-bottom: 0.5rem; padding-left: 1rem;">
+            {% for child,choiceView in children %}
+                <div class="custom-control custom-switch">
+                    {{ form_widget(form.offsetGet(child), { 'attr' : { 'class' : 'custom-control-input' } }) }}
+                    {{ form_label(form.offsetGet(child), { 'attr' : { 'class' : 'custom-control-label' } }, {translation_domain: choice_translation_domain}) }}
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <div class="custom-control custom-switch">
+                {{ form_widget(form.offsetGet(choiceOrOptionGroup), { 'attr' : { 'class' : 'custom-control-input' } }) }}
+                {{ form_label(form.offsetGet(choiceOrOptionGroup), { 'attr' : { 'class' : 'custom-control-label' } }, {translation_domain: choice_translation_domain}) }}
+            </div>
+
+        {% endif %}
+    {% endfor %}
+{% endblock choice_widget_expanded %}

@@ -26,8 +26,8 @@ CREATE TABLE rss_entry (
  link VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
  published_at DATETIME,
  updated_at DATETIME,
- summary TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
- content TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+ summary TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+ content TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 )ENGINE = InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
 ALTER TABLE rss_entry
